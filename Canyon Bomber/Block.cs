@@ -9,12 +9,12 @@ namespace Canyon_Bomber
 
     public class Block
     {
-        public int width = 25;
-        public int height = 25;
+        public int width = 20;
+        public int height = 20;
 
         public int x;
         public int y;
-            public int hp;
+        public int hp;
         public Color colour;
 
         public static Random rand = new Random();

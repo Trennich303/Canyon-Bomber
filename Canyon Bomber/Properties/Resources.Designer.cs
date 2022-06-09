@@ -119,5 +119,29 @@ namespace Canyon_Bomber.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;level&gt;
+        ///	&lt;Block&gt;
+        ///		&lt;x&gt;265&lt;/x&gt;
+        ///		&lt;y&gt;412&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;colour&gt;Red&lt;/colour&gt;
+        ///	&lt;/Block&gt;
+        ///	&lt;Block&gt;
+        ///		&lt;x&gt;265&lt;/x&gt;
+        ///		&lt;y&gt;412&lt;/y&gt;
+        ///		&lt;hp&gt;1&lt;/hp&gt;
+        ///		&lt;colour&gt;Red&lt;/colour&gt;
+        ///	&lt;/Block&gt;
+        ///&lt;/level&gt;
+        ///.
+        /// </summary>
+        internal static string Level1 {
+            get {
+                return ResourceManager.GetString("Level1", resourceCulture);
+            }
+        }
     }
 }

@@ -46,6 +46,10 @@ namespace Canyon_Bomber
             
             // Creating the speed of the planes
             yellow = new PlayerYellow(x, y, 3);
+
+            //Block b = new Block(150, 150, 10, Color.Red);
+            //blocks.Add(b);  
+            LoadLevel(1);
         }
 
         public void LoadLevel(int level)
@@ -91,12 +95,14 @@ namespace Canyon_Bomber
             {
                 e.Graphics.FillEllipse(Brushes.Yellow, b.x, b.y, b.size, b.size);
             }
-
+            //Drawing each brick to the screen
             foreach (Block b in blocks)
             {
                 e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
                
             }
+
+            e.Graphics.FillRectangle(Brushes.Gray, 0, this.Height - 125, this.Width, 125);
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -108,7 +114,7 @@ namespace Canyon_Bomber
             //If space bar is down create a yellow bomb
 
             shotOk--;
-
+            //If the space bar is down and the timer is at 0 then drop a bomb
             if (spacebarDown == true && shotOk <= 0)
             {
 
@@ -117,12 +123,12 @@ namespace Canyon_Bomber
 
                 shotOk = 50;
             }
-
+            // Telling all bombs on the screen to move
             foreach (Bombs1 b in bombs)
             {
                 b.Move(screenSize);
             }
-
+            // Updates the screen
             Refresh();
 
         }
@@ -145,6 +151,11 @@ namespace Canyon_Bomber
                     spacebarDown = true;
                     break;
             }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
