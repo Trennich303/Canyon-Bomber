@@ -75,7 +75,7 @@ namespace Canyon_Bomber
                 reader.ReadToFollowing("colour");
                 colour = reader.ReadString();
 
-                if (x != "")
+                if (x != "" && colour == "gray")
                 {
                     blocks.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
                 }
