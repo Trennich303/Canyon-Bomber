@@ -120,7 +120,6 @@
             this.button85 = new System.Windows.Forms.Button();
             this.button86 = new System.Windows.Forms.Button();
             this.button87 = new System.Windows.Forms.Button();
-            this.button88 = new System.Windows.Forms.Button();
             this.button89 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -1207,19 +1206,6 @@
             this.button87.TabIndex = 92;
             this.button87.UseVisualStyleBackColor = false;
             // 
-            // button88
-            // 
-            this.button88.BackColor = System.Drawing.Color.Blue;
-            this.button88.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.button88.FlatAppearance.BorderSize = 0;
-            this.button88.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button88.ForeColor = System.Drawing.Color.Transparent;
-            this.button88.Location = new System.Drawing.Point(206, 398);
-            this.button88.Name = "button88";
-            this.button88.Size = new System.Drawing.Size(20, 20);
-            this.button88.TabIndex = 93;
-            this.button88.UseVisualStyleBackColor = false;
-            // 
             // button89
             // 
             this.button89.BackColor = System.Drawing.Color.Gray;
@@ -1238,7 +1224,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
             this.Controls.Add(this.button89);
-            this.Controls.Add(this.button88);
             this.Controls.Add(this.button87);
             this.Controls.Add(this.button86);
             this.Controls.Add(this.button85);
@@ -1332,6 +1317,7 @@
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(853, 543);
+            this.Load += new System.EventHandler(this.GameScreen_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
@@ -1433,7 +1419,6 @@
         private System.Windows.Forms.Button button85;
         private System.Windows.Forms.Button button86;
         private System.Windows.Forms.Button button87;
-        private System.Windows.Forms.Button button88;
         private System.Windows.Forms.Button button89;
     }
 }

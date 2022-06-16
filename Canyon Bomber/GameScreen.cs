@@ -24,7 +24,8 @@ namespace Canyon_Bomber
         }
 
         List<Bombs1> bombs = new List<Bombs1>();
-        List<Block> blocks = new List<Block>();
+        List<Block> blocksGray = new List<Block>();
+        List<Block> blocksColours = new List<Block>();
         PlayerYellow yellow;
         Size screenSize;
 
@@ -57,7 +58,7 @@ namespace Canyon_Bomber
 
             XmlReader reader = XmlReader.Create($"Resources/Level{level}.xml");
 
-            blocks.Clear();
+            blocksGray.Clear();
             string x, y, hp, colour;
 
 
@@ -77,8 +78,27 @@ namespace Canyon_Bomber
 
                 if (x != "" && colour == "Gray")
                 {
-                    blocks.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
+                    blocksGray.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
                 }
+                if (x != "" && colour == "Blue")
+                {
+                    blocksColours.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
+                }
+                if (x != "" && colour == "HotTrack")
+                {
+                    blocksColours.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
+                }
+                if (x != "" && colour == "Green")
+                {
+                    blocksColours.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
+                }
+                if (x != "" && colour == "LimeGreen")
+                {
+                    blocksColours.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
+                }
+
+
+
             }
             reader.Close();
         }
@@ -96,10 +116,15 @@ namespace Canyon_Bomber
                 e.Graphics.FillEllipse(Brushes.Yellow, b.x, b.y, b.size, b.size);
             }
             //Drawing each brick to the screen
-            foreach (Block b in blocks)
+            foreach (Block b in blocksGray)
             {
                 e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
                
+            }
+            foreach (Block b in blocksColours)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
+
             }
 
             e.Graphics.FillRectangle(Brushes.Gray, 0, this.Height - 125, this.Width, 125);
@@ -154,6 +179,16 @@ namespace Canyon_Bomber
         }
 
         private void button11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GameScreen_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button90_Click(object sender, EventArgs e)
         {
 
         }
