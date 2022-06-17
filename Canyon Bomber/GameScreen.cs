@@ -175,7 +175,7 @@ namespace Canyon_Bomber
                     if (b.Collision(bg))
                     {
                         bombs.Remove(b);
-                        break;
+                        return;
                     }
                 }
 
