@@ -9,7 +9,7 @@ namespace Canyon_Bomber
 {
     internal class Bombs1
     {
-        public int size = 10;
+        public int size = 8;
         public int xSpeed, ySpeed;
         public int x, y;
 
@@ -26,6 +26,22 @@ namespace Canyon_Bomber
             x += xSpeed;
             y += ySpeed;
         }
+        public bool Collision(Block b)
+        {
+            Rectangle Bombs1 = new Rectangle(x, y, size, size);
 
+            Rectangle Block = new Rectangle(b.x, b.y, b.height, b.width);
+
+            if (Bombs1.IntersectsWith(Block))
+            {
+
+
+                return true;
+
+
+            }
+
+            return false;
         }
+    }
     }

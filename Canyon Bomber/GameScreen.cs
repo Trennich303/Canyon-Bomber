@@ -30,7 +30,8 @@ namespace Canyon_Bomber
         Size screenSize;
 
         Bombs1 bomb;
-        
+        Block block;
+
         int shotOk = 5;
 
         bool spacebarDown = false;
@@ -44,7 +45,7 @@ namespace Canyon_Bomber
 
             int x = 50;
             int y = 125;
-            
+
             // Creating the speed of the planes
             yellow = new PlayerYellow(x, y, 3);
 
@@ -106,9 +107,9 @@ namespace Canyon_Bomber
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             // Creating the plane 
-           // e.Graphics.FillEllipse(Brushes.Yellow, yellow.x, yellow.y, yellow.height, yellow.width);
+            // e.Graphics.FillEllipse(Brushes.Yellow, yellow.x, yellow.y, yellow.height, yellow.width);
             e.Graphics.DrawImage(Properties.Resources.bombing_canyons_cropped, yellow.x, yellow.y, yellow.height, yellow.width);
-            
+
 
             //Drawing each bomb on the screen
             foreach (Bombs1 b in bombs)
@@ -119,7 +120,7 @@ namespace Canyon_Bomber
             foreach (Block b in blocksGray)
             {
                 e.Graphics.FillRectangle(new SolidBrush(b.colour), b.x, b.y, b.width, b.height);
-               
+
             }
             foreach (Block b in blocksColours)
             {
@@ -132,7 +133,7 @@ namespace Canyon_Bomber
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            
+
             // Telling the yellow plane to move
             yellow.Move(screenSize);
 
@@ -152,6 +153,32 @@ namespace Canyon_Bomber
             foreach (Bombs1 b in bombs)
             {
                 b.Move(screenSize);
+            }
+
+            foreach (Bombs1 b in bombs)
+            {
+                foreach (Block bl in blocksColours)
+                {
+                    if (b.Collision(bl))
+                    {
+                        blocksColours.Remove(bl);
+                        break;
+                    }
+                }
+
+            }
+
+            foreach (Bombs1 b in bombs)
+            {
+                foreach (Block bg in blocksGray)
+                {
+                    if (b.Collision(bg))
+                    {
+                        bombs.Remove(b);
+                        break;
+                    }
+                }
+
             }
             // Updates the screen
             Refresh();

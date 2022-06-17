@@ -26,6 +26,8 @@ namespace Canyon_Bomber
             hp = _hp;
             colour = _colour;
         }
+
+       
     }
 
 }
