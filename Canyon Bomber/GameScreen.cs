@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -24,19 +19,26 @@ namespace Canyon_Bomber
         }
 
         List<Bombs1> bombs = new List<Bombs1>();
+        List<Bombs2> bombs2 = new List<Bombs2>();
         List<Block> blocksGray = new List<Block>();
         List<Block> blocksColours = new List<Block>();
         PlayerYellow yellow;
+        PlayerRed red;
         Size screenSize;
-        int lives = 3;
         Bombs1 bomb;
+        Bombs2 bomb2;
         Block block;
 
-        int shotOk = 5;
-        int counter = 0;
+        int shotOk1 = 5;
+        int shotOk2 = 5;
+        int counterYellow = 0;
+        int counterRed = 0;
         int score1 = 0;
         int score2 = 0;
+        int livesYellow = 3;
+        int livesRed = 3;
         bool spacebarDown = false;
+        bool enterkeyDown = false;
 
 
 
@@ -51,6 +53,12 @@ namespace Canyon_Bomber
             // Creating the speed of the planes
             yellow = new PlayerYellow(x, y, 3);
 
+            screenSize = new Size(this.Width, this.Height);
+
+            x = 770;
+            y = 150;
+
+            red = new PlayerRed(x, y, -3);
             //Block b = new Block(150, 150, 10, Color.Red);
             //blocks.Add(b);  
             LoadLevel(1);
@@ -112,12 +120,19 @@ namespace Canyon_Bomber
             // e.Graphics.FillEllipse(Brushes.Yellow, yellow.x, yellow.y, yellow.height, yellow.width);
             e.Graphics.DrawImage(Properties.Resources.bombing_canyons_cropped_removebg_preview, yellow.x, yellow.y, yellow.height, yellow.width);
 
+            e.Graphics.DrawImage(Properties.Resources.Red_Bomber1_removebg_preview, red.x, red.y, red.height, red.width);
 
             //Drawing each bomb on the screen
             foreach (Bombs1 b in bombs)
             {
                 e.Graphics.FillEllipse(Brushes.Yellow, b.x, b.y, b.size, b.size);
             }
+
+            foreach (Bombs2 b in bombs2)
+            {
+                e.Graphics.FillEllipse(Brushes.Red, b.x, b.y, b.size, b.size);
+            }
+            
             //Drawing each brick to the screen
             foreach (Block b in blocksGray)
             {
@@ -139,25 +154,45 @@ namespace Canyon_Bomber
             // Telling the yellow plane to move
             yellow.Move(screenSize);
 
+            red.Move(screenSize);
             //If space bar is down create a yellow bomb
 
-            shotOk--;
+            shotOk1--;
+
+            shotOk2--;
+
             //If the space bar is down and the timer is at 0 then drop a bomb
-            if (spacebarDown == true && shotOk <= 0)
+            if (spacebarDown == true && shotOk1 <= 0)
             {
 
-                bomb = new Bombs1(yellow.x, yellow.y + 5, 4, 5);
+                bomb = new Bombs1(yellow.x, yellow.y + 5, 2, 5);
                 bombs.Add(bomb);
 
-                shotOk = 50;
+                shotOk1 = 50;
             }
+
+            if (enterkeyDown == true && shotOk2 <= 0)
+            {
+
+                bomb2 = new Bombs2(red.x, red.y + 5, -2, 5);
+                bombs2.Add(bomb2);
+
+                shotOk2 = 50;
+            }
+
             // Telling all bombs on the screen to move
             foreach (Bombs1 b in bombs)
             {
                 b.Move(screenSize);
             }
+            
+            foreach (Bombs2 b in bombs2)
+            {
+                b.Move(screenSize);
+            }
 
-           
+
+
 
             foreach (Bombs1 b in bombs)
             {
@@ -167,7 +202,22 @@ namespace Canyon_Bomber
                     {
                         blocksColours.Remove(bl);
                         score1++;
-                        counter++;
+                        counterYellow++;
+                        break;
+                    }
+                }
+
+            }
+
+            foreach (Bombs2 b in bombs2)
+            {
+                foreach (Block bl in blocksColours)
+                {
+                    if (b.Collision(bl))
+                    {
+                        blocksColours.Remove(bl);
+                        score2++;
+                        counterRed++;
                         break;
                     }
                 }
@@ -176,50 +226,88 @@ namespace Canyon_Bomber
 
             foreach (Bombs1 b in bombs)
             {
-                foreach (Block bg in blocksGray) 
+                foreach (Block bg in blocksGray)
                 {
                     if (b.Collision(bg))
                     {
                         bombs.Remove(b);
 
-                        if (counter == 0)
+                        if (counterYellow == 0)
                         {
-                            lives--;
+                            livesYellow--;
 
-                           
+
                         }
-                        counter = 0;
+                        counterYellow = 0;
                         return;
                     }
                 }
 
             }
 
-            if (lives == 2)
+            foreach (Bombs2 b in bombs2)
+            {
+                foreach (Block bg in blocksGray)
+                {
+                    if (b.Collision(bg))
+                    {
+                        bombs2.Remove(b);
+
+                        if (counterRed == 0)
+                        {
+                            livesRed--;
+
+
+                        }
+                        counterRed = 0;
+                        return;
+                    }
+                }
+
+            }
+
+            if (livesYellow == 2)
             {
                 pictureBox3.Visible = false;
             }
-            else if (lives == 1)
+            else if (livesYellow == 1)
             {
                 pictureBox2.Visible = false;
             }
-            else if (lives == 0)
+            else if (livesYellow == 0)
             {
-                
+
                 Form1.ChangeScreen(this, new GameOverScreen());
-                gameTimer.Enabled = false;  
+                gameTimer.Enabled = false;
+            }
+
+            if (livesRed == 2)
+            {
+                pictureBox6.Visible = false;
+            }
+            else if (livesRed == 1)
+            {
+                pictureBox5.Visible = false;
+            }
+            else if (livesRed == 0)
+            {
+
+                Form1.ChangeScreen(this, new GameOverScreen());
+                gameTimer.Enabled = false;
             }
 
             scoreYellow.Text = $"{score1}";
+            scoreRed.Text = $"{score2}";
 
 
 
 
             // Updates the screen
             Refresh();
-            
-            
+
+
         }
+    
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
@@ -227,6 +315,9 @@ namespace Canyon_Bomber
             {
                 case Keys.Space:
                     spacebarDown = false;
+                    break;
+                case Keys.Enter:
+                    enterkeyDown = false;
                     break;
             }
         }
@@ -238,7 +329,11 @@ namespace Canyon_Bomber
                 case Keys.Space:
                     spacebarDown = true;
                     break;
+                case Keys.Enter:
+                    enterkeyDown = true;
+                    break;
             }
+
         }
 
         private void button11_Click(object sender, EventArgs e)
