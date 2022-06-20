@@ -28,12 +28,14 @@ namespace Canyon_Bomber
         List<Block> blocksColours = new List<Block>();
         PlayerYellow yellow;
         Size screenSize;
-
+        int lives = 3;
         Bombs1 bomb;
         Block block;
 
         int shotOk = 5;
-
+        int counter = 0;
+        int score1 = 0;
+        int score2 = 0;
         bool spacebarDown = false;
 
 
@@ -108,7 +110,7 @@ namespace Canyon_Bomber
         {
             // Creating the plane 
             // e.Graphics.FillEllipse(Brushes.Yellow, yellow.x, yellow.y, yellow.height, yellow.width);
-            e.Graphics.DrawImage(Properties.Resources.bombing_canyons_cropped, yellow.x, yellow.y, yellow.height, yellow.width);
+            e.Graphics.DrawImage(Properties.Resources.bombing_canyons_cropped_removebg_preview, yellow.x, yellow.y, yellow.height, yellow.width);
 
 
             //Drawing each bomb on the screen
@@ -155,6 +157,8 @@ namespace Canyon_Bomber
                 b.Move(screenSize);
             }
 
+           
+
             foreach (Bombs1 b in bombs)
             {
                 foreach (Block bl in blocksColours)
@@ -162,6 +166,8 @@ namespace Canyon_Bomber
                     if (b.Collision(bl))
                     {
                         blocksColours.Remove(bl);
+                        score1++;
+                        counter++;
                         break;
                     }
                 }
@@ -170,19 +176,49 @@ namespace Canyon_Bomber
 
             foreach (Bombs1 b in bombs)
             {
-                foreach (Block bg in blocksGray)
+                foreach (Block bg in blocksGray) 
                 {
                     if (b.Collision(bg))
                     {
                         bombs.Remove(b);
+
+                        if (counter == 0)
+                        {
+                            lives--;
+
+                           
+                        }
+                        counter = 0;
                         return;
                     }
                 }
 
             }
+
+            if (lives == 2)
+            {
+                pictureBox3.Visible = false;
+            }
+            else if (lives == 1)
+            {
+                pictureBox2.Visible = false;
+            }
+            else if (lives == 0)
+            {
+                
+                Form1.ChangeScreen(this, new GameOverScreen());
+                gameTimer.Enabled = false;  
+            }
+
+            scoreYellow.Text = $"{score1}";
+
+
+
+
             // Updates the screen
             Refresh();
-
+            
+            
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)

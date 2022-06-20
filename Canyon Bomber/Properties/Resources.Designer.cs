@@ -73,6 +73,16 @@ namespace Canyon_Bomber.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bombing_canyons_cropped_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("bombing_canyons_cropped_removebg_preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Canyon_Bomber_flyer {
             get {
                 object obj = ResourceManager.GetObject("Canyon_Bomber_flyer", resourceCulture);
@@ -141,6 +151,26 @@ namespace Canyon_Bomber.Properties {
         internal static string Level1 {
             get {
                 return ResourceManager.GetString("Level1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Lives_image_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("Lives_image-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Lives_Image3_removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("Lives_Image3-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
