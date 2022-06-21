@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using System.Media;
 
 
 namespace Canyon_Bomber
@@ -14,7 +15,9 @@ namespace Canyon_Bomber
             InitializeComponent();
 
             InitializeGame();
+            SoundPlayer player = new SoundPlayer(Properties.Resources.air_raid_siren_short);
 
+            player.Play();
 
         }
         //All of these lists are represent the bombs, blocks, and planes
@@ -72,7 +75,7 @@ namespace Canyon_Bomber
             blocksGray.Clear();
             string x, y, hp, colour;
 
-
+            // xml data to make all blocks when game starts
             while (reader.Read())
             {
                 reader.ReadToFollowing("x");
@@ -107,6 +110,10 @@ namespace Canyon_Bomber
                 {
                     blocksColours.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
                 }
+                if (x != "" && colour == "Gold")
+                {
+                    blocksColours.Add(new Block(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(hp), Color.FromName($"{colour}")));
+                }
 
 
 
@@ -117,12 +124,11 @@ namespace Canyon_Bomber
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             // Creating the plane 
-            // e.Graphics.FillEllipse(Brushes.Yellow, yellow.x, yellow.y, yellow.height, yellow.width);
             e.Graphics.DrawImage(Properties.Resources.bombing_canyons_cropped_removebg_preview, yellow.x, yellow.y, yellow.height, yellow.width);
 
             e.Graphics.DrawImage(Properties.Resources.Red_Bomber1_removebg_preview, red.x, red.y, red.height, red.width);
 
-            //Drawing each bomb on the screen
+            //Drawing each red and yellow bomb on the screen
             foreach (Bombs1 b in bombs)
             {
                 e.Graphics.FillEllipse(Brushes.Yellow, b.x, b.y, b.size, b.size);
@@ -151,11 +157,10 @@ namespace Canyon_Bomber
         private void gameTimer_Tick(object sender, EventArgs e)
         {
 
-            // Telling the yellow plane to move
+            // Telling the yellow and red plane to move
             yellow.Move(screenSize);
 
             red.Move(screenSize);
-            //If space bar is down create a yellow bomb
 
             shotOk1--;
 
@@ -193,7 +198,7 @@ namespace Canyon_Bomber
 
 
 
-
+            // Collisons for when red and yellow bombs hit the coloured blocks
             foreach (Bombs1 b in bombs)
             {
                 foreach (Block bl in blocksColours)
@@ -223,7 +228,7 @@ namespace Canyon_Bomber
                 }
 
             }
-
+            // Collisions for red and yellow bombs for when they hit gray blocks
             foreach (Bombs1 b in bombs)
             {
                 foreach (Block bg in blocksGray)
@@ -265,7 +270,7 @@ namespace Canyon_Bomber
                 }
 
             }
-
+            // This code removes the hearts on screen depending on what your live counter is at
             if (livesYellow == 2)
             {
                 pictureBox3.Visible = false;
@@ -308,7 +313,7 @@ namespace Canyon_Bomber
 
         }
     
-
+        // When the keys are not pressed down
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -322,6 +327,7 @@ namespace Canyon_Bomber
             }
         }
 
+        // When keys are pressed down
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)

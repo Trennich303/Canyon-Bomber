@@ -30,7 +30,7 @@ namespace Canyon_Bomber
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new GameScreen());
+            
         }
 
         private void menuButton_Click(object sender, EventArgs e)
