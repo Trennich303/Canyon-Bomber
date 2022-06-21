@@ -17,7 +17,7 @@ namespace Canyon_Bomber
 
 
         }
-
+        //All of these lists are represent the bombs, blocks, and planes
         List<Bombs1> bombs = new List<Bombs1>();
         List<Bombs2> bombs2 = new List<Bombs2>();
         List<Block> blocksGray = new List<Block>();
@@ -28,15 +28,15 @@ namespace Canyon_Bomber
         Bombs1 bomb;
         Bombs2 bomb2;
         Block block;
-
+        // All of variables
         int shotOk1 = 5;
         int shotOk2 = 5;
         int counterYellow = 0;
         int counterRed = 0;
-        int score1 = 0;
-        int score2 = 0;
-        int livesYellow = 3;
-        int livesRed = 3;
+        public static int score1 = 0;
+        public static int score2 = 0;
+        public static int livesYellow = 3;
+        public static int livesRed = 3;
         bool spacebarDown = false;
         bool enterkeyDown = false;
 

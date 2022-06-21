@@ -15,6 +15,32 @@ namespace Canyon_Bomber
         public GameOverScreen()
         {
             InitializeComponent();
+
+            scoreYellow.Text = $"{GameScreen.score1}";
+            scoreRed.Text = $"{GameScreen.score2}";
+
+            livesYellow.Text = $"{GameScreen.livesYellow}";
+            livesRed.Text = $"{GameScreen.livesRed}";
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new GameScreen());
+        }
+
+        private void menuButton_Click(object sender, EventArgs e)
+        {
+            Form1.ChangeScreen(this, new MenuScreen());
+        }
+
+        private void GameOverScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
